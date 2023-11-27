@@ -1,0 +1,18 @@
+{
+  "name": "product-manager",
+  "version": "1.0.0",
+  "description": "Product-Manager L-D chalange",
+  "main": "app.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "expres": "^0.0.5",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.1",
+    "winston": "^3.11.0"
+  }
+}

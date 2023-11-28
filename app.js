@@ -6,13 +6,16 @@ const httpLogger = require('./middlewares/logger/httpLogger');
 const globalErrorHandler = require('./middlewares/errorHandler');
 const AppError = require('./utils/appError');
 const productRouter = require('./router/productRouter');
+const userRouter = require('./router/userRouter');
 
 dotenv.config();
 const app = express();
 
+app.use(express.json());
 app.use(httpLogger);
 
 app.use('/api/v1/products', productRouter);
+app.use('/api/v1/user', userRouter);
 app.use('*', (req, res, next) => {
   next(new AppError(400, `can't find ${req.originalUrl}`));
 });

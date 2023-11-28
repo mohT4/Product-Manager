@@ -38,12 +38,13 @@ exports.logIn = catchAsync(async (req, res, next) => {
   if (!email || !password)
     return next(new AppError(400, 'please enter email and password'));
 
-  const user = User.findOne({ email }).select(+password);
+  const user = await User.findOne({ email }).select('+password');
 
   //check if the given email password is correct
   if (!user || !(await user.comparePassword(password, user.password)))
     return next(new AppError(404, 'wrong email or password'));
 
+  user.password = undefined;
   const token = sign_token(user._id);
   res.status(200).json({
     status: 'success',

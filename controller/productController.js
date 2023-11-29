@@ -22,7 +22,6 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 
 exports.getProduct = catchAsync(async (req, res, next) => {
   const product = await Products.findById(req.params.id);
-
   if (!product)
     return next(new AppError(404, 'no product was found with that id'));
 

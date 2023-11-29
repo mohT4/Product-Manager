@@ -7,7 +7,7 @@ const { promisify } = require('util');
 const sendMail = require('../utils/email');
 
 const sign_token = (id) => {
-  jwt.sign({ id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES,
   });
 };
@@ -46,6 +46,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
 
   user.password = undefined;
   const token = sign_token(user._id);
+
   res.status(200).json({
     status: 'success',
     token: token,

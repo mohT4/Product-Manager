@@ -8,8 +8,8 @@ const AppError = require('./utils/appError');
 const productRouter = require('./router/productRouter');
 const userRouter = require('./router/userRouter');
 const purchaseRouter = require('./router/purchaseRouter');
+const cardsRouter = require('./router/cardRouter');
 
-dotenv.config();
 const app = express();
 
 app.use(express.json());
@@ -18,18 +18,11 @@ app.use(httpLogger);
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/purchase/stats', purchaseRouter);
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/cards', cardsRouter);
+
 app.use('*', (req, res, next) => {
   next(new AppError(400, `can't find ${req.originalUrl}`));
 });
 app.use(globalErrorHandler);
 
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
-mongoose.connect(DB).then(() => logger.info('data base connected ...'));
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  logger.info(`app listening on port ${PORT}`);
-});
+module.exports = app;

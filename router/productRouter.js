@@ -1,7 +1,9 @@
 const express = require('express');
 const productController = require('../controller/productController');
+const purchaseRouter = require('./purchaseRouter');
 
 const router = express.Router();
+router.use('/:productId/purchase', purchaseRouter);
 
 router
   .route('/')

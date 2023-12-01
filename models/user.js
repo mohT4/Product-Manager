@@ -25,7 +25,7 @@ userSchema.virtual('passwordConfirmation').set(function (value) {
   this._passwordConfirmation = value;
 });
 
-// use winston for btter validation
+// use joi for btter validation
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 

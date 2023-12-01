@@ -3,6 +3,7 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const ApiFeatures = require('../utils/apiFeatures');
 
+//read all the products
 exports.getAllProducts = catchAsync(async (req, res, next) => {
   const features = new ApiFeatures(Products.find(), req.query)
     .filter()
@@ -20,6 +21,7 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
   });
 });
 
+//get a product by Id
 exports.getProduct = catchAsync(async (req, res, next) => {
   const product = await Products.findById(req.params.id);
   if (!product)
@@ -33,6 +35,7 @@ exports.getProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+//create a new product
 exports.createProduct = catchAsync(async (req, res, next) => {
   const newProduct = await Products.create(req.body);
 
@@ -44,6 +47,7 @@ exports.createProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+//update a product by id
 exports.updateProduct = catchAsync(async (req, res, next) => {
   const product = Products.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -61,6 +65,7 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+//delete a product by id
 exports.deleteProduct = catchAsync(async () => {
   const product = await Products.findByIdAndDelete(req.params.id);
 

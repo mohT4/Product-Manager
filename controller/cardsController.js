@@ -2,6 +2,7 @@ const axios = require('axios');
 const catchAsync = require('../utils/catchAsync');
 
 exports.filterCards = catchAsync(async (req, res, next) => {
+  //costimize the size on the query
   const size = req.query.size || 10;
   const options = {
     method: 'GET',
@@ -11,6 +12,7 @@ exports.filterCards = catchAsync(async (req, res, next) => {
   const response = await axios.request(options);
   const cardsData = response.data;
 
+  //filter the data we get to be type of vise only
   const filteredCards = cardsData
     .filter((e) => e.credit_card_type.toLowerCase() == 'visa')
     .map((e) => ({

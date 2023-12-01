@@ -20,10 +20,12 @@ const userSchema = mongoose.Schema(
   { timestamps: true }
 );
 
+//make the password cpnfermation vertual
 userSchema.virtual('passwordConfirmation').set(function (value) {
   this._passwordConfirmation = value;
 });
 
+// use winston for btter validation
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
@@ -49,6 +51,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+//hash the password when saving
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
@@ -56,10 +59,12 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+//compare password when logging in
 userSchema.methods.comparePassword = async function (currentPD, candiatePD) {
   return await bcrypt.compare(currentPD, candiatePD);
 };
 
+//check if user changes his password the last jwt has issued
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
@@ -72,6 +77,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   return false;
 };
 
+//password reset token when the password is forgetten
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
 

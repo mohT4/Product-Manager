@@ -21,6 +21,7 @@ purchaseSchema = mongoose.Schema({
 
 purchaseSchema.index({ quantity: 1 });
 
+//populate the user name when reading data
 purchaseSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'user',
@@ -28,6 +29,8 @@ purchaseSchema.pre(/^find/, function (next) {
   });
   next();
 });
+
+//populate the product name when reading data
 purchaseSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'product',

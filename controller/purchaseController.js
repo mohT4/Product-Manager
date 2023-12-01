@@ -2,8 +2,12 @@ const Purchase = require('../models/purchase.js');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
+//create a new purchase
 exports.createPurchase = catchAsync(async (req, res, next) => {
+  //we get the user id from the protect function
   const user = req.user.id;
+
+  // we get the product Id from params
   const product = req.params.productId;
   const quantity = req.body.quantity;
 
@@ -21,6 +25,7 @@ exports.createPurchase = catchAsync(async (req, res, next) => {
   });
 });
 
+//read Purchase details
 exports.getPurchaseDetails = catchAsync(async (req, res, next) => {
   let filter = { product: req.params.productId, user: req.user.id };
   const purchase = await Purchase.find(filter);
@@ -33,6 +38,7 @@ exports.getPurchaseDetails = catchAsync(async (req, res, next) => {
   });
 });
 
+//read the total purchases
 exports.getTotalPurchases = catchAsync(async (req, res, next) => {
   const stats = await Purchase.countDocuments();
   res.status(200).json({
@@ -43,6 +49,7 @@ exports.getTotalPurchases = catchAsync(async (req, res, next) => {
   });
 });
 
+//read the top selling products using aggregate and populating the product name
 exports.getTopSellingProds = catchAsync(async (req, res, next) => {
   const stats = await Purchase.aggregate([
     {
@@ -84,6 +91,7 @@ exports.getTopSellingProds = catchAsync(async (req, res, next) => {
   });
 });
 
+//read the purchase trends
 exports.getPurchaseTrend = catchAsync(async (req, res, next) => {
   const stats = await Purchase.aggregate([
     {

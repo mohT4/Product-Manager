@@ -1,6 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const logger = require('./middlewares/logger/logger');
 const httpLogger = require('./middlewares/logger/httpLogger');
 const globalErrorHandler = require('./middlewares/errorHandler');
@@ -12,8 +10,14 @@ const cardsRouter = require('./router/cardRouter');
 
 const app = express();
 
+//global middlwares
+
+//reading data from body
 app.use(express.json());
+
+//development loggin
 app.use(httpLogger);
+logger.info(process.env.NODE_ENV);
 
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/purchase/stats', purchaseRouter);

@@ -36,8 +36,8 @@ product manager provides a secure authentication system to manage user accounts.
 ## Products EndPoints 
 1) - Create: Add a new product to the system. : api/v1/products 
 2) - Read: Retrieve product information, including pagination and search features. : : api/v1/products
-3) - Update: Update product details. : : api/v1/products/:id
-4) - Delete: Remove a product from the system. : : api/v1/products/:id
+3) - Update: Update product details. : api/v1/products/:id
+4) - Delete: Remove a product from the system.  : api/v1/products/:id
  
 ## Purchase EndPoints 
 1) - Create: crate a new purchase to the system. : api/v1/products/:id/purchase 

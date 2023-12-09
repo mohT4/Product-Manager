@@ -38,9 +38,9 @@ userSchema.pre('save', async function (next) {
   };
 
   const Schema = joi.object({
-    name: joi.string().required(),
-    email: joi.string().required().email(),
-    password: joi.string(),
+    name: joi.string().required().min(3).max(20),
+    email: joi.string().required().email().min(3).max(10),
+    password: joi.string().min(6).max(20),
     passwordConfirmation: joi
       .string()
       .required()
